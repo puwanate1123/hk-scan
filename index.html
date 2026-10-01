@@ -69,7 +69,13 @@ button, a.btn { font: inherit; cursor: pointer; -webkit-tap-highlight-color: tra
 .btn-red { background: var(--red); color: #fff; }
 .btn-light { background: #fff; color: var(--ink); border-color: var(--line); }
 .row { display: flex; gap: 10px; }
-.row .btn { flex: 1; }
+.row .btn { flex: 1; min-width: 0; }
+/* ปุ่มถ่ายรูป: ข้อความบรรทัดเดียว ย่อขนาดตามความกว้างจอ ไม่ล้นบนจอแคบหรือเครื่องที่ตั้งตัวอักษรใหญ่ */
+.btn-photo { padding: 0 12px; gap: 8px; white-space: nowrap; font-size: clamp(15px, 4.4vw, 19px); }
+.btn-photo span { overflow: hidden; text-overflow: ellipsis; }
+/* ปุ่มไฟฉาย: ไอคอนอย่างเดียว ขนาดเท่าความสูงปุ่ม */
+.btn-torch { flex: 0 0 58px !important; width: 58px; padding: 0; }
+.btn-torch.on { background: var(--gold); border-color: var(--gold); }
 .done {
   position: fixed; inset: 0; z-index: 10; display: none; flex-direction: column; align-items: center; justify-content: center; gap: 16px;
   background: var(--red); color: #fff; text-align: center; padding: 24px;
@@ -109,14 +115,13 @@ button, a.btn { font: inherit; cursor: pointer; -webkit-tap-highlight-color: tra
 <div class="sheet">
   <small>กล้องใช้ไม่ได้? ถ่ายรูปคิวอาร์โค้ดแทน</small>
   <div class="row">
-    <label class="btn btn-red">
+    <label class="btn btn-red btn-photo">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
-      ถ่ายรูปคิวอาร์โค้ด
+      <span>ถ่ายรูปคิวอาร์โค้ด</span>
       <input type="file" accept="image/*" capture="environment" id="photo" hidden>
     </label>
-    <button class="btn btn-light" id="torch" hidden>
+    <button class="btn btn-light btn-torch" id="torch" aria-label="เปิดไฟฉาย" hidden>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-      <span id="torch-text">ไฟฉาย</span>
     </button>
   </div>
 </div>
@@ -303,7 +308,8 @@ $('torch').addEventListener('click', function () {
   var next = !S.torch;
   S.stream.getVideoTracks()[0].applyConstraints({ advanced: [{ torch: next }] }).then(function () {
     S.torch = next;
-    $('torch-text').textContent = next ? 'ปิดไฟ' : 'ไฟฉาย';
+    $('torch').className = 'btn btn-light btn-torch' + (next ? ' on' : '');
+    $('torch').setAttribute('aria-label', next ? 'ปิดไฟฉาย' : 'เปิดไฟฉาย');
   }).catch(function () { toast('เปิดไฟฉายไม่ได้'); });
 });
 
