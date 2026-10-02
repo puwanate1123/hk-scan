@@ -337,6 +337,13 @@ $('torch').addEventListener('click', function () {
 /* ---------------- เริ่มต้น ---------------- */
 
 $('back').href = APP_URL;
+// มาจากระบบ: ย้อนกลับด้วยประวัติของเบราว์เซอร์ (เร็วกว่าโหลดใหม่ เบราว์เซอร์อาจคืนหน้าเดิมจากหน่วยความจำ)
+$('back').addEventListener('click', function (e) {
+  if (history.length > 1 && /script\.google(usercontent)?\.com/.test(document.referrer || '')) {
+    e.preventDefault();
+    history.back();
+  }
+});
 if (!APP_ID) {
   failed('ยังไม่ได้ตั้งค่าลิงก์เว็บแอปในไฟล์นี้ (บรรทัด APP_URL) กรุณาแจ้งผู้ดูแลระบบ');
 } else {
