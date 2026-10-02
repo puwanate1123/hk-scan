@@ -30,6 +30,8 @@ body {
   padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 button, a.btn { font: inherit; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+/* กันจอซูมเองเมื่อแตะปุ่มเร็ว ๆ (ยังซูมด้วยสองนิ้วได้) */
+html, body, button, a, label { touch-action: manipulation; }
 .top { display: flex; align-items: center; gap: 10px; padding: 14px 16px; }
 .back {
   width: 46px; height: 46px; border-radius: 23px; border: 0; background: rgba(255, 255, 255, .12); color: #fff;
