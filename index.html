@@ -58,6 +58,12 @@ html, body, button, a, label { touch-action: manipulation; }
   padding: 24px; text-align: center; font-size: 17px; line-height: 1.5; background: rgba(30, 30, 30, .88);
 }
 .msg:empty { display: none; }
+.frame { transition: box-shadow .25s ease; }
+.frame.hit { box-shadow: 0 0 0 4px #2E7D4F, 0 0 34px rgba(46, 125, 79, .85); }
+.frame.hit .cn { border-color: #4ADE80; }
+.done.show .ok { animation: pop .5s cubic-bezier(.3, 1.5, .5, 1) both; }
+@keyframes pop { from { transform: scale(.3); opacity: 0; } to { transform: none; opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .done.show .ok { animation: none; } }
 .caption { text-align: center; display: flex; flex-direction: column; gap: 4px; }
 .caption b { font-size: 21px; font-weight: 600; }
 .caption span { font-size: 16px; color: #CFCFCF; }
@@ -273,12 +279,25 @@ function found(text) {
     return;
   }
   S.done = true;
+  document.querySelector('.frame').classList.add('hit');
+  beep();
   stopCamera();
   if (navigator.vibrate) navigator.vibrate(80);
   $('done-room').textContent = 'ห้อง ' + t.room.replace(/^ROOM-/i, '');
   $('done').className = 'done show';
-  // replace: กดย้อนกลับจากหน้าห้องแล้วจะไม่วนกลับมาหน้าสแกน
-  location.replace(t.url);
+  // replace: กดย้อนกลับจากหน้าห้องแล้วจะไม่วนกลับมาหน้าสแกน (หน่วงนิดเดียวให้เห็นกรอบเขียว)
+  setTimeout(function () { location.replace(t.url); }, 250);
+}
+
+/** เสียงติ๊งสั้น ๆ ตอนสแกนติด */
+function beep() {
+  try {
+    var ctx = new (window.AudioContext || window.webkitAudioContext)();
+    var o = ctx.createOscillator(), g = ctx.createGain();
+    o.frequency.value = 1319; o.connect(g); g.connect(ctx.destination);
+    g.gain.setValueAtTime(.12, ctx.currentTime); g.gain.exponentialRampToValueAtTime(.0001, ctx.currentTime + .12);
+    o.start(); o.stop(ctx.currentTime + .15);
+  } catch (e) { /* ไม่รองรับเสียง */ }
 }
 
 /* ---------------- ถ่ายรูปคิวอาร์โค้ด (สำรอง) ---------------- */
