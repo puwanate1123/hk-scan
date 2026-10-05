@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#1E1E1E">
+<meta name="theme-color" content="#123A44">
 <title>สแกนคิวอาร์โค้ดพื้นที่ · ระบบตรวจงานแม่บ้าน</title>
 <!--
   ============================================================
@@ -21,11 +21,11 @@
 -->
 <style>
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;600;700&display=swap');
-:root { --red: #7A1C22; --gold: #D4A72C; --ink: #2B2B2B; --muted: #5C5C5C; --line: #E2DCCF; --cream: #F6F0E4; }
+:root { --red: #0F5C6E; --gold: #3FA7A3; --ink: #1E2B30; --muted: #4E6268; --line: #D4E3E3; --cream: #F3F7F7; }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html, body { height: 100%; }
 body {
-  font-family: 'IBM Plex Sans Thai', Tahoma, sans-serif; background: #1E1E1E; color: #fff;
+  font-family: 'IBM Plex Sans Thai', Tahoma, sans-serif; background: #123A44; color: #fff;
   display: flex; flex-direction: column; min-height: 100%;
   padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px);
 }
@@ -40,7 +40,7 @@ html, body, button, a, label { touch-action: manipulation; }
 .back svg { width: 24px; height: 24px; }
 .top h1 { font-size: 19px; font-weight: 600; }
 .main { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 22px; padding: 16px 24px; }
-.frame { position: relative; width: 300px; height: 300px; max-width: 82vw; max-height: 82vw; border-radius: 24px; background: #2E2E2E; overflow: hidden; }
+.frame { position: relative; width: 300px; height: 300px; max-width: 82vw; max-height: 82vw; border-radius: 24px; background: #1C4D59; overflow: hidden; }
 .frame video { width: 100%; height: 100%; object-fit: cover; display: block; }
 .cn { position: absolute; width: 58px; height: 58px; border: 0 solid var(--gold); z-index: 2; }
 .tl { left: 0; top: 0; border-left-width: 5px; border-top-width: 5px; border-top-left-radius: 24px; }
@@ -66,7 +66,7 @@ html, body, button, a, label { touch-action: manipulation; }
 @media (prefers-reduced-motion: reduce) { .done.show .ok { animation: none; } }
 .caption { text-align: center; display: flex; flex-direction: column; gap: 4px; }
 .caption b { font-size: 21px; font-weight: 600; }
-.caption span { font-size: 16px; color: #CFCFCF; }
+.caption span { font-size: 16px; color: #BFD8DA; }
 .sheet { background: #fff; color: var(--ink); border-radius: 24px 24px 0 0; padding: 18px 16px 24px; display: flex; flex-direction: column; gap: 10px; }
 .sheet small { font-size: 15px; color: var(--muted); }
 .btn {
